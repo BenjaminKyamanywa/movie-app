@@ -1,26 +1,15 @@
 <template>
   <v-container v-if="loading">
     <div class="text-xs-center">
-      <v-progress-circular
-        indeterminate
-        :size="150"
-        :width="8"
-        color="green">
-      </v-progress-circular>
+      <v-progress-circular indeterminate :size="150" :width="8" color="green"></v-progress-circular>
     </div>
   </v-container>
-<v-container v-else grid-list-xl>
+  <v-container v-else grid-list-xl>
     <v-layout wrap>
-      <v-flex xs4
-        v-for="(item, index) in wholeResponse"
-        :key="index"
-        mb-2>
+      <v-flex xs4 v-for="(item, index) in wholeResponse" :key="index" mb-2>
         <v-card>
-          <v-img
-            :src="item.Poster"
-            aspect-ratio="1"
-          ></v-img>
-<v-card-title primary-title>
+          <v-img :src="item.Poster" aspect-ratio="1"></v-img>
+          <v-card-title primary-title>
             <div>
               <h2>{{item.Title}}</h2>
               <div>Year: {{item.Year}}</div>
@@ -28,51 +17,41 @@
               <div>IMDB-id: {{item.imdbID}}</div>
             </div>
           </v-card-title>
-<v-card-actions class="justify-center">
-            <v-btn flat
-              color="green"
-              @click="singleMovie(item.imdbID)"
-              >View</v-btn>
+          <v-card-actions class="justify-center">
+            <v-btn flat color="green" @click="singleMovie(item.imdbID)">View</v-btn>
           </v-card-actions>
-</v-card>
+        </v-card>
       </v-flex>
-  </v-layout>
+    </v-layout>
   </v-container>
 </template>
 
 <script>
 export default {
-    name: 'LatestMovie',
-    data(){
-        return {
-            wholeResponse: [],
-            loading: true
-        }
-    },
-    mounted(){
-        fetch('https://api.themoviedb.org/3/movie/550?api_key=a0f264b76b8661bd95dab224d89a6504',
-        {
-            
-            method: "GET",
-            body: JSON.stringify(data),
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: "same-origin"
-            }
-         )
-         .then(response => {
-             this.wholeResponse = response.data.Search
-         })
-         .catch(error => {
-             console.log(error)
-         })
-    }
-
-}
+  name: "LatestMovie",
+  data() {
+    return {
+      wholeResponse: [],
+      loading: true
+    };
+  },
+  mounted() {
+    axios
+      .get(
+        "https://api.themoviedb.org/3/movie/550?api_key=a0f264b76b8661bd95dab224d89a6504"
+      )
+      .then(response => {
+        this.wholeResponse = response.data.Search;
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+};
 </script>
 
-<style lang="stylus" scoped>
-    .v-progress-circular
-        margin: 1 rem
+<style scoped>
+.v-progress-circular {
+  margin: 1 rem;
+}
 </style>
