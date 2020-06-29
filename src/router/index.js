@@ -22,6 +22,12 @@ Vue.use(VueRouter)
     path: '/latest-movie',
     name: 'LatestMovie',
     component: () => import(/* webpackChunkName: "about" */ '../components/LatestMovie.vue')
+  },
+  {
+    path: '/movie',
+    name: 'Movie',
+    props: true,
+    component: () => import(/* webpackChunkName: "about" */ '../components/Movie.vue')
   }
 ]
 
